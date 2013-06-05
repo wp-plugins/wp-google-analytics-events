@@ -3,6 +3,9 @@ Contributors: yuvalo
 Tags: analytics, google, events, ga
 Tested up to: 3.5.1
 Stable tag: 1.0
+License: GPLv2
+Requires at least: 3.0
+
 Adds the Google Analytics code to your website and enables you to send events on scroll or click.
 == Description ==
 The WP Google Analytics Events plugin allows you to send events to Google Analytics for scrolling or clicking elements on the page.
@@ -13,6 +16,6 @@ Activate the plugin and go to the WP Google Analytics Settings page.
 Fill in your Google Analytics account identifier, add scroll and start creating scroll and click events.
 
 == Screenshots ==
-1. Plugin Options wp-ga-events1.png.
-2. Google Analytics real time events wp-ga-events2.png.
+1. Plugin Options wp-ga-events1.png
+2. Google Analytics real time events wp-ga-events2.png
 == Changelog == = Version 1.0 =
