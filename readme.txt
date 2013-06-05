@@ -16,6 +16,6 @@ Activate the plugin and go to the WP Google Analytics Settings page.
 Fill in your Google Analytics account identifier, add scroll and start creating scroll and click events.
 
 == Screenshots ==
-1. Plugin Options wp-ga-events1.png
-2. Google Analytics real time events wp-ga-events2.png
+1. Plugin Options screenshot-1.png
+2. Google Analytics real time events screenshot-2.png
 == Changelog == = Version 1.0 =
