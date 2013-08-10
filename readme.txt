@@ -1,8 +1,8 @@
 === WP Google Analytics Events ===
 Contributors: yuvalo
 Tags: analytics, google, events, ga
-Tested up to: 3.5.1
-Stable tag: 1.0
+Tested up to: 3.6
+Stable tag: 1.1
 License: GPLv2
 Requires at least: 3.0
 
