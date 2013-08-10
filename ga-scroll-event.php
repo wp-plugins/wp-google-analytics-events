@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP Google Analytics Events
-Plugin URI: http://steam.io
+Plugin URI: http://wpgoogleanalyticsevents.com
 Description: Adds the Google Analytics code to your website and enables you to send events on scroll or click.
-Version: 1.0
+Version: 1.1
 Author: Yuval Oren
-Author URI: http://steam.io
+Author URI: http://wpgoogleanalyticsevents.com
 License: GPLv2
 */
 
@@ -223,7 +223,7 @@ function ga_events_header() {
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
               })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-              ga('create', '<?php $id ?>', '$domain');
+              ga('create', '$id', '$domain');
               ga('send', 'pageview');
 
         </script>
@@ -257,25 +257,29 @@ function ga_events_footer() {
                     scroll_events.bind_events( {
                         scroll_elements: [";
                                         $i = 0;
-                                        foreach ($divs as $div) {
-                                            if ($i == 0) {
-                                                echo ga_events_get_selector($div);
-                                            }else{
-                                                echo ",".ga_events_get_selector($div);
+                                        if (is_array($divs)){
+                                            foreach ($divs as $div) {
+                                                if ($i == 0) {
+                                                    echo ga_events_get_selector($div);
+                                                }else{
+                                                    echo ",".ga_events_get_selector($div);
+                                                }
+                                                $i++;
                                             }
-                                            $i++;
                                         }
 
                         echo "],
                         click_elements: [";
                                         $i = 0;
-                                        foreach ($click as $cl) {
-                                            if ($i == 0) {
-                                                echo ga_events_get_selector($cl);
-                                            }else{
-                                                echo ",".ga_events_get_selector($cl);
+                                         if (is_array($click)){
+                                            foreach ($click as $cl) {
+                                                if ($i == 0) {
+                                                    echo ga_events_get_selector($cl);
+                                                }else{
+                                                    echo ",".ga_events_get_selector($cl);
+                                                }
+                                                $i++;
                                             }
-                                            $i++;
                                         }
                         echo "],
                     });
