@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP Google Analytics Events
-Plugin URI: http://wpgoogleanalyticsevents.com
+Plugin URI: http://wpflow.com
 Description: Adds the Google Analytics code to your website and enables you to send events on scroll or click.
-Version: 1.1
+Version: 1.2
 Author: Yuval Oren
-Author URI: http://wpgoogleanalyticsevents.com
+Author URI: http://wpflow.com
 License: GPLv2
 */
 
@@ -29,6 +29,7 @@ register_activation_hook( __FILE__, 'ga_events_install' );
 function ga_events_install() {
     $ga_events_options = array(
         'id' => '',
+        'universal' => '0',
         'divs' => array(array(id => '',type =>'', action => '', cat => '', label => '')),
         'click' => array(array(id => '',type =>'', action => '', cat => '', label => ''))
     );
@@ -48,7 +49,8 @@ function ga_events_menu() {
 
 function ga_events_settings_page() {
 ?>
-    <div class="wrap">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <div id="ga_main" class="wrap">
         <?php screen_icon( 'plugins' ); ?>
     <h2>GA Scroll Events Plugin</h2>
 
@@ -59,37 +61,113 @@ function ga_events_settings_page() {
         </form>
 
     </div>
+    <div class="wrap ga_events_sidebar">
+        <table class="form-table widefat" >
+            <thead>
+                <th>Upgrade to Pro</th>
+            </thead>
+            <tbody>
+                <tr class="features">
+                    <td>
+                        <ul>
+                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>Assign Event Value</strong></li>
+                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>Shortcode support</strong></li>
+                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>HTML Tags support</strong></li>
+                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>Bounce Rate Control</strong></li>
+                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>Improved link tracking</strong></li>
+                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>Pro Support</strong></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="tfoot">
+                    <td>
+                        <div class="wpcta">
+                            <a class="btn btn-subscribe" href="http://wpflow.com">
+                                <span class="btn-title ">
+                                    Starting from
+                                    <span class="btn-data">
+                                        <span class="price">$29</span>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Begin MailChimp Signup Form -->
+        <link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+            #mc_embed_signup{background:#fff; clear:left; font:13px Helvetica,Arial,sans-serif;  width:194px;}
+                /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+                   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+        </style>
+        <div id="mc_embed_signup">
+            <form action="http://wpflow.us6.list-manage.com/subscribe/post?u=3a1990ecd0eee6198c11e5fc1&amp;id=7e01c30e7f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div class="form-content">
+                    <h4>Receive plugin updates, news, promo codes and more</h4>
+                    <label for="mce-EMAIL">Subscribe to our mailing list</label>
+                    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;"><input type="text" name="b_3a1990ecd0eee6198c11e5fc1_7e01c30e7f" value=""></div>
+                </div>
+                <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn-subscribe "></div>
+            </form>
+        </div>
+
+        <!--End mc_embed_signup-->
+    </div>
+
 
 <?php
 }
+
+function load_custom_wp_admin_style() {
+    wp_register_style( 'custom_wp_admin_css', plugins_url('css/style.css', __FILE__));
+    wp_enqueue_style( 'custom_wp_admin_css' );
+}
+
+add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 
 add_action('admin_init', 'ga_events_admin_init');
 
 function ga_events_admin_init() {
     register_setting('ga_events_options','ga_events_options','ga_events_validate');
     add_settings_section('ga_events_main','WP Google Analytics Events Settings', 'ga_events_section_text','ga_events');
-    add_settings_field('ga_events_id', 'Google Analytics Identifier','ga_events_setting_input','ga_events','ga_events_main');
-    add_settings_field('ga_events_divs', 'Scroll Events','ga_events_setting_divs_input','ga_events','ga_events_main');
-    add_settings_field('ga_events_click', 'Click Events','ga_events_setting_click_input','ga_events','ga_events_main');
+    add_settings_field('ga_events_id', '','ga_events_setting_input','ga_events','ga_events_main');
+    add_settings_field('ga_events_universal', '','ga_events_setting_uni_input','ga_events','ga_events_main');
+    add_settings_field('ga_events_divs', '','ga_events_setting_divs_input','ga_events','ga_events_main');
+    add_settings_field('ga_events_click', '','ga_events_setting_click_input','ga_events','ga_events_main');
+    add_settings_field('ga_events_sidebar', '','ga_events_setting_sidebar','ga_events','ga_events_main');
 
 
 }
 
 function ga_events_section_text() {
-    echo "<p>Enter your settings</p>";
+    echo "<a href='http://wpflow.com/documentation'>Plugin Documentation</a>";
 }
 
 function ga_events_setting_input() {
     $options = get_option('ga_events_options');
     $id = $options['id'];
-    echo "<input id='id' name='ga_events_options[id]' type='text' value='$id' />";
+    echo "<label>Google Analytics Identifier</label>";
+    echo "<span class='ga_intable'><input class='inputs' id='id' name='ga_events_options[id]' type='text' value='$id' /></span>";
+
+}
+
+function ga_events_setting_uni_input() {
+    $options = get_option('ga_events_options');
+    $id = $options['universal'];
+    echo "<label>Universal Tracking Code</label>";
+    echo "<span class='ga_intable'><input id='universal' name='ga_events_options[universal]' type='checkbox' value='1' " . checked( $id , 1,false) . " /></span>";
 
 }
 
 function ga_events_setting_divs_input() {
     $options = get_option('ga_events_options');
     $divs = $options['divs'];
-    echo "<table class='widefat'><thead><th>Element Name</th><th>Type</th><th>Event Category</th><th>Event Action</th><th>Event Label</th><th></th></thead><tbody>";
+    echo "<label>Scroll Events</label><br />";
+    echo "<table class='widefat inputs inner_table'><thead><th>Element Name</th><th>Type</th><th>Event Category</th><th>Event Action</th><th>Event Label</th><th></th></thead><tbody>";
     if (!($divs[0][0])){
         echo "<tr>";
         echo "<td><input id='divs' name='ga_events_options[divs][0][0]' type='text' value='".$divs[0][0]."' /></td>";
@@ -126,7 +204,8 @@ function ga_events_setting_divs_input() {
 function ga_events_setting_click_input() {
     $options = get_option('ga_events_options');
     $click = $options['click'];
-    echo "<table class='widefat'><thead><th>Element Name</th><th>Type</th><th>Event Category</th><th>Event Action</th><th>Event Label</th><th></th></thead><tbody>";
+    echo "<label>Click Events</label><br />";
+    echo "<table class='widefat inputs inner_table'><thead><th>Element Name</th><th>Type</th><th>Event Category</th><th>Event Action</th><th>Event Label</th><th></th></thead><tbody>";
     if (!($click[0][0])){
         echo "<tr>";
         echo "<td><input id='click' name='ga_events_options[click][0][0]' type='text' value='".$click[0][0]."' /></td>";
@@ -170,10 +249,13 @@ function ga_events_setting_click_input() {
 
 }
 
+function ga_events_setting_sidebar(){
+}
 
 function ga_events_validate($form){
     $updated = array();
     $updated['id'] = $form['id'];
+    $updated['universal'] = $form['universal'];
 
     for ($i = 0, $j = 0; $i< sizeof($form['divs']); $i++){
         if ($form['divs'][$i][0]){
@@ -217,31 +299,37 @@ function ga_events_header() {
     $id = $options['id'];
     $domain = $_SERVER['SERVER_NAME'];
 
-    echo "<script>
-              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-              })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    if (isset($options['universal']) && $options['universal']) {
+        echo "<script>
+                if (typeof ga === 'undefined') {
+                  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-              ga('create', '$id', '$domain');
-              ga('send', 'pageview');
+                  ga('create','$id', '$domain');
+                  ga('send', 'pageview');
+                }
+            </script>";
+    } else {
+        echo "<script type='text/javascript'>
+ if (typeof _gaq === 'undefined') {
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '$id']);
+  _gaq.push(['_setDomainName', '$domain']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
 
-        </script>
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+ }
 
-          <script type='text/javascript'>
 
-              var _gaq = _gaq || [];
-              _gaq.push(['_setAccount', '$id']);
-              _gaq.push(['_trackPageview']);
-
-              (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-              })();
-
-        </script>";
-
+</script>";
+    }
 }
 
 add_action( 'wp_footer', 'ga_events_footer', 100 ); 
@@ -250,11 +338,16 @@ function ga_events_footer() {
     $options = get_option('ga_events_options');
     $divs = $options['divs'];
     $click = $options['click'];
+    $universal = $options['universal'];
+    if ($universal == ""){
+        $universal = 0;
+    }
     echo "
     <script> 
 
                 jQuery(document).ready(function() {
                     scroll_events.bind_events( {
+                        universal: ".$universal.",
                         scroll_elements: [";
                                         $i = 0;
                                         if (is_array($divs)){
