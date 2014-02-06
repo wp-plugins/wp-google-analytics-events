@@ -17,10 +17,15 @@ Get to know what your visitors are doing on the website.
 
 The plugin also supports the new Universal Tracking code by Google.
 
+
+http://www.youtube.com/watch?v=UP8mfuV9huI
+
 == Installation ==
 Add the plugin by uploading the zip file or by installing it from the Wordpress Plugin directory.
 Activate the plugin and go to the WP Google Analytics Settings page.
 Fill in your Google Analytics account identifier, add scroll and start creating scroll and click events.
+
+http://www.youtube.com/watch?v=UP8mfuV9huI
 
 == Screenshots ==
 1. Plugin Options screenshot-1.png
