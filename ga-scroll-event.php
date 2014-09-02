@@ -3,7 +3,7 @@
 Plugin Name: WP Google Analytics Events
 Plugin URI: http://wpflow.com
 Description: Adds the Google Analytics code to your website and enables you to send events on scroll or click.
-Version: 1.2
+Version: 1.3
 Author: Yuval Oren
 Author URI: http://wpflow.com
 License: GPLv2
@@ -29,6 +29,7 @@ register_activation_hook( __FILE__, 'ga_events_install' );
 function ga_events_install() {
     $ga_events_options = array(
         'id' => '',
+        'exclude_snippet' => '0',
         'universal' => '0',
         'divs' => array(array(id => '',type =>'', action => '', cat => '', label => '')),
         'click' => array(array(id => '',type =>'', action => '', cat => '', label => ''))
@@ -82,7 +83,7 @@ function ga_events_settings_page() {
                 <tr class="tfoot">
                     <td>
                         <div class="wpcta">
-                            <a class="btn btn-subscribe" href="http://wpflow.com">
+                            <a class="btn btn-subscribe" href="http://wpflow.com/upgrade/">
                                 <span class="btn-title ">
                                     Starting from
                                     <span class="btn-data">
@@ -135,6 +136,7 @@ function ga_events_admin_init() {
     register_setting('ga_events_options','ga_events_options','ga_events_validate');
     add_settings_section('ga_events_main','WP Google Analytics Events Settings', 'ga_events_section_text','ga_events');
     add_settings_field('ga_events_id', '','ga_events_setting_input','ga_events','ga_events_main');
+    add_settings_field('ga_events_exclude_snippet', '','ga_events_setting_snippet_input','ga_events','ga_events_main');
     add_settings_field('ga_events_universal', '','ga_events_setting_uni_input','ga_events','ga_events_main');
     add_settings_field('ga_events_divs', '','ga_events_setting_divs_input','ga_events','ga_events_main');
     add_settings_field('ga_events_click', '','ga_events_setting_click_input','ga_events','ga_events_main');
@@ -152,6 +154,15 @@ function ga_events_setting_input() {
     $id = $options['id'];
     echo "<label>Google Analytics Identifier</label>";
     echo "<span class='ga_intable'><input class='inputs' id='id' name='ga_events_options[id]' type='text' value='$id' /></span>";
+
+}
+
+
+function ga_events_setting_snippet_input() {
+    $options = get_option('ga_events_options');
+    $id = $options['exclude_snippet'];
+    echo "<label>Don't add the GA tracking code</label>";
+    echo "<span class='ga_intable'><input id='snippet' name='ga_events_options[exclude_snippet]' type='checkbox' value='1' " . checked( $id , 1,false) . " /></span>";
 
 }
 
@@ -255,6 +266,7 @@ function ga_events_setting_sidebar(){
 function ga_events_validate($form){
     $updated = array();
     $updated['id'] = $form['id'];
+    $updated['exclude_snippet'] = $form['exclude_snippet'];
     $updated['universal'] = $form['universal'];
 
     for ($i = 0, $j = 0; $i< sizeof($form['divs']); $i++){
@@ -298,7 +310,7 @@ function ga_events_header() {
     $options = get_option('ga_events_options');
     $id = $options['id'];
     $domain = $_SERVER['SERVER_NAME'];
-
+    if (!isset($options['exclude_snippet']) || $options['exclude_snippet'] != '1' ) {
     if (isset($options['universal']) && $options['universal']) {
         echo "<script>
                 if (typeof ga === 'undefined') {
@@ -312,24 +324,25 @@ function ga_events_header() {
                 }
             </script>";
     } else {
-        echo "<script type='text/javascript'>
- if (typeof _gaq === 'undefined') {
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '$id']);
-  _gaq.push(['_setDomainName', '$domain']);
-  _gaq.push(['_setAllowLinker', true]);
-  _gaq.push(['_trackPageview']);
+		 echo "<script type='text/javascript'>
+		 if (typeof _gaq === 'undefined') {
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', '$id']);
+			_gaq.push(['_setDomainName', '$domain']);
+			_gaq.push(['_setAllowLinker', true]);
+			_gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
- }
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		 }
 
 
 </script>";
     }
+	}
 }
 
 add_action( 'wp_footer', 'ga_events_footer', 100 ); 
