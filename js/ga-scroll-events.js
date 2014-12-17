@@ -13,15 +13,25 @@ var scroll_events = (function ($) {
     var scroll_elements  = [];
     var click_elements = [];
     var universal = 0;
+		var ga_element;
 
     var track_event = function (category, action, label, universal) {
         var event_category = !category ? '' : category;
         var event_action = !action ? '' : action;
         var event_label = !label ? '' : label;
-        if (universal) {
-          ga('send','event', category, action, label);
+        if (typeof ga_element === "undefined") {
+           if (typeof ga !== 'undefined') {
+                ga_element = ga;
+            } else if (typeof _gaq !== 'undefined') {
+                ga_element = _gaq;
+            } else if (typeof __gaTracker === "function") {
+                        ga_element = __gaTracker;
+                }
+        }
+				if (universal) {
+          ga_element('send','event', category, action, label);
         } else {
-          _gaq.push(['_trackEvent',category, action, label]);
+          ga_element.push(['_trackEvent',category, action, label]);
         }
 
     };

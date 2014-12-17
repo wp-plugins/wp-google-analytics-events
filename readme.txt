@@ -1,8 +1,8 @@
 === WP Google Analytics Events ===
 Contributors: yuvalo
 Tags: analytics, google, events, ga
-Tested up to: 4.0 
-Stable tag: 1.3
+Tested up to: 4.1 
+Stable tag: 1.4
 License: GPLv2
 Requires at least: 3.0
 
@@ -30,6 +30,9 @@ http://www.youtube.com/watch?v=UP8mfuV9huI
 == Screenshots ==
 1. Plugin Options screenshot-1.png
 2. Google Analytics real time events screenshot-2.png
+== Changelog == = Version 1.4 =
+You can now use the plugin along with Yoast Analytics. 
+Just check the "Don't add the GA tracking code" option and if you are using the universal tracking code, check that option as well.
 == Changelog == = Version 1.2 =
 1. Fixes an issue that would cause tracking a page twice.
 2. Admin look and feel changes.
