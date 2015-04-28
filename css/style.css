@@ -1,6 +1,5 @@
 #ga_main {
     float:left;
-    width:80%;
     display: block;
 }
 #ga_main th {
@@ -10,11 +9,14 @@
     max-width: 400px;
 }
 
+#ga_main li {
+	list-style-type: none;
+}
 .ga_events_sidebar {
     float:right;
-    width: 195px;
+    width: 250px;
     margin-top:52px;
-    margin-right: 10px;
+    margin-right: 30px;
 }
 .ga_intable {
     margin-left:10px;
@@ -65,14 +67,13 @@
     border-radius: 7px;
     position: relative;
 }
-}
 
 .wpcta {
     text-align: center;
 }
 
 .ga_events_sidebar li {
-    list-style-type: square !important;
+    list-style-type: none !important;
     color: #FFF;
     font-size: 14px;
 }
@@ -120,3 +121,11 @@
 #mc_embed_signup input.email {
     width: 96% !important;
 }
+
+a[href="admin.php?page=wp-google-analytics-events-upgrade"] {
+		color: #F7691D !important;
+}
+
+a[href="admin.php?page=wp-google-analytics-events-upgrade"]:hover {
+	color: #cf471c !important;
+ }
