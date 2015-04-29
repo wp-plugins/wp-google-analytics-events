@@ -2,7 +2,7 @@
 Contributors: yuvalo
 Tags: analytics, google, events, ga
 Tested up to: 4.2 
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2
 Requires at least: 3.0
 
@@ -30,6 +30,8 @@ http://www.youtube.com/watch?v=UP8mfuV9huI
 == Screenshots ==
 1. Plugin Options screenshot-1.png
 2. Google Analytics real time events screenshot-2.png
+== Changelog == = Version 1.6 =
+1. Bug fixes
 == Changelog == = Version 1.5 =
 1. UI Changes
 2. Diactivating and reactivating the plugin will not delete previous settings

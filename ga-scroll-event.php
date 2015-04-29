@@ -3,7 +3,7 @@
 Plugin Name: WP Google Analytics Events
 Plugin URI: http://wpflow.com
 Description: Adds the Google Analytics code to your website and enables you to send events on scroll or click.
-Version: 1.5
+Version: 1.6
 Author: Yuval Oren
 Author URI: http://wpflow.com
 License: GPLv2

@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
  * Plugin Admin Settings
@@ -108,7 +108,7 @@ function ga_events_settings_page() {
 
         <!--End mc_embed_signup-->
     </div>
-		<? } ?>
+		<?php } ?>
 
 
 <?php
@@ -296,7 +296,7 @@ function ga_events_admin_footer() {
 					window.open('http://wpflow.com/upgrade', '_blank');
 				});
 	</script>
-	<?
+	<?php
 }
 
 ?>
