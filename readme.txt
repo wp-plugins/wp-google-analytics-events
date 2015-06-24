@@ -20,6 +20,9 @@ The plugin also supports the new Universal Tracking code by Google.
 
 http://www.youtube.com/watch?v=UP8mfuV9huI
 
+
+[Plugin Documentation](http://wpflow.com/documentation/ "Documentation")
+
 == Installation ==
 Add the plugin by uploading the zip file or by installing it from the Wordpress Plugin directory.
 Activate the plugin and go to the WP Google Analytics Settings page.
@@ -27,19 +30,25 @@ Fill in your Google Analytics account identifier, add scroll and start creating 
 
 http://www.youtube.com/watch?v=UP8mfuV9huI
 
+[For more Documentation](http://wpflow.com/documentation/ "Documentation")
+
 == Screenshots ==
-1. Plugin Options screenshot-1.png
+1. Plugin General Settings screenshot-3.png
+2. Plugin Click Settings screenshot-4.png
+3. Plugin Scroll Settings screenshot-5.png
 2. Google Analytics real time events screenshot-2.png
-== Changelog == = Version 1.6 =
+== Changelog == 
+= Version 1.6 =
 1. Bug fixes
-== Changelog == = Version 1.5 =
+= Version 1.5 =
 1. UI Changes
 2. Diactivating and reactivating the plugin will not delete previous settings
-== Changelog == = Version 1.4 =
+= Version 1.4 =
 You can now use the plugin along with Yoast Analytics. 
 Just check the "Don't add the GA tracking code" option and if you are using the universal tracking code, check that option as well.
-== Changelog == = Version 1.2 =
+= Version 1.2 =
 1. Fixes an issue that would cause tracking a page twice.
 2. Admin look and feel changes.
 3. Use the Universal Trcking code.
 4. Added a short delay for link clicks.
+
