@@ -61,11 +61,12 @@ function ga_events_settings_page() {
                 <tr class="features">
                     <td>
                         <ul>
-                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>Set Value for Events</strong></li>
+                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>One Checkbox Link Tracking</strong></li>
+                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>YouTube Video Tracking</strong></li>
                             <li><i class="fa fa-check-square-o fa-lg"></i><strong>Shortcode support</strong></li>
+                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>Set Value for Events</strong></li>
                             <li><i class="fa fa-check-square-o fa-lg"></i><strong>HTML Tag support</strong></li>
                             <li><i class="fa fa-check-square-o fa-lg"></i><strong>Bounce Rate Control</strong></li>
-                            <li><i class="fa fa-check-square-o fa-lg"></i><strong>Improved link tracking</strong></li>
                             <li><i class="fa fa-check-square-o fa-lg"></i><strong>Pro Support</strong></li>
                         </ul>
                     </td>
